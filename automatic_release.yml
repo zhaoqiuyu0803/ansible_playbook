@@ -1,0 +1,12 @@
+    - hosts: '{{hosts}}'  //指定要发布的机器(也可以指定多台)  
+      tasks:  
+       - name: "stop tomcat"  
+         shell: "ps -ef |grep tomcat | grep -v grep |awk '{print $2}'|xargs kill -9"  //杀掉tomcat  
+       - name: "clean the directory"  
+         command: rm -rf /data/tomcat/webapps/  //删除老版本的包  
+       - name: "delivery the war to the remote_host"              
+         copy:  
+           src=/maven/root/.jenkins/jobs/项目名称/workspace/项目名称/target/xxx.war  //cp 项目war包  
+           dest=/usr/tomcat/webapps/  //cp 到tomcat的webapps目录  
+       - name: "start the tomcat"  
+         shell: chdir=/data/tomcat/bin nohup ./catalina.sh start   //启动tomcat  
