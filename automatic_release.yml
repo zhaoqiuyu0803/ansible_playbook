@@ -10,3 +10,4 @@
            dest=/usr/tomcat/webapps/  //cp 到tomcat的webapps目录  
        - name: "start the tomcat"  
          shell: chdir=/data/tomcat/bin nohup ./catalina.sh start   //启动tomcat  
+#
